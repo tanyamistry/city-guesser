@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset='utf-8' />
+  <title>City-Guesser</title>
+	<!-- <meta http-equiv='refresh' content='0; URL=http://schoolofcities.github.io/city-guesser/index.html'> -->
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  
+  <link rel="icon" href="data/favicon.svg">
+
+
+	<meta name="description" content="City Guesser - An Urban Map Quiz Game">
+	<meta name="author" content="Jeff Allen">
+
+	<meta property="og:title" content="City-Guesser" />
+	<meta name="og:description" content="An Urban Map Quiz Game" />
+	<meta property="og:type" content="website" />
+	<!-- <meta property="og:url" content="https://schoolofcities.github.io/city-guesser/" /> -->
+	<!-- <meta property="og:image" content="https://raw.githubusercontent.com/schoolofcities/city-guesser/gh-pages/data/webcard.png" /> -->
+	<meta property="og:locale" content="en_CA">
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="https://schoolofcities.github.io/" />
+	<meta name="twitter:creator" content="@JeffAllenMaps" />
+	<meta name="twitter:title" content="City-Guesser" />
+	<meta name="twitter:description" content="An Urban Map Quiz Game" />
+	<meta name="twitter:image" content="https://raw.githubusercontent.com/schoolofcities/city-guesser/gh-pages/data/webcard.png" />
+
+
+
+
+
+
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+  <script src='data/cities_nat_500k3s.js'></script>
+  <script src='main.js'></script>
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+
+  <style>
+      @font-face {
+        font-family: 'TradeGothic';
+        src: url('data/Trade Gothic LT Bold.ttf');
+      }
+      body { 
+        margin:0; 
+        padding:0; 
+        background-color: #FCFAF2;
+      }
+      #wrapper {
+        overflow: auto;
+        /*position: fixed;*/
+      }
+      #map {
+        top:0;
+        bottom:0;
+        width: calc(100% - 300px);
+        height: 100vh;
+        background-color: black;
+        border-right: 1px solid darkgrey;
+        float:left
+      }
+      #section {
+        height: calc(100vh - 5px);
+        max-width: 279px;
+        overflow: auto;
+        background-color: #0D534D;
+        padding-top: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      #sofc {
+        margin: 0 auto;
+        height: 50px;
+      }
+      #sofc:hover {
+        opacity: 0.86;
+      }
+      #level {
+        font-weight: bold;
+        color: #F1C500;
+      }
+      #score {
+        font-weight: bold;
+        color: #6FC7EA;
+      }
+      #hlevel {
+        font-weight: bold;
+        color: #F1C500;
+      }
+      #hscore {
+        font-weight: bold;
+        color: #6FC7EA;
+      }
+      #line {
+        width: 269px;
+        margin-top: 17px;
+        border-top: dashed 1px white;
+      }
+      .radio {
+        color: red;
+        border: 5px solid red;
+      }
+      input[type="submit"] {
+        background: #00A189;
+        border: 1px solid;
+        border-color: #FCFAF2;
+        color: white;
+        padding: 10px 15px;
+        margin-left: 4px;
+        cursor: pointer;
+        font-family: 'Roboto', sans-serif;
+      }        
+      h3 {
+        font-family: 'TradeGothic', sans-serif;
+        font-size: 38px;
+        display: inline;
+        color: white;
+      }
+      p {
+        display: inline;
+        font-family: 'Roboto', sans-serif;
+        color: white;
+      }
+      #end {
+        color: #F1C500;
+        font-weight: bold;
+        /* font-size: 22px; */
+        /* padding-top: 25px; */
+        /* text-decoration: underline; */
+      }
+      #levels {
+        font-size: 14px;
+        padding: 4px;
+        padding-top: 16px;
+      }
+      #att {
+        font-size: 12px;
+        padding: 4px;
+        padding-top: 12px;
+      }
+      #att p {
+        color: rgb(255, 255, 255);
+      }
+      #att a {
+        text-decoration: underline;
+        color: #ffffff;
+      }
+  </style>
+
+</head>
+
+<body>
+
+<div id='wrapper'>
+
+  <div id='map'></div>
+
+  <div id='section'>
+
+    <h3>sheher ki khoj</h3>
+    <img src="data/dot-logo.svg" alt="School of Cities">
+    <br><div id="line"></div>
+    <br>
+    <p>&nbsp;Level: </p><p id="level">1</p><p>&nbsp;  &nbsp;Score: </p><p id="score">0</p><br>
+    <div id="line"></div>
+    <!--    onsubmit="return submitAnswers()" -->
+    <form name="quizForm"  >
+          <br>
+          <input type="radio" name="q1" value="1" id="q1a" class="radio"><p id="p1"></p><br>
+          <input type="radio" name="q1" value="2" id="q1b"><p id="p2"></p><br>
+          <input type="radio" name="q1" value="3" id="q1c"><p id="p3"></p><br>
+          <input type="radio" name="q1" value="4" id="q1d"><p id="p4"></p><br>
+          <br>
+          <!-- <input type="submit" value="Submit Answer"> -->
+          <p id="message">Good Luck!</p>
+    </form>
+
+    <div id="line"></div>
+    
+    <br>
+    <!-- <p>&nbsp;Max Level Achieved: </p><p id="hlevel">0</p><br> -->
+    <p>&nbsp;High Score: </p><p id="hscore">0</p><br>
+
+    <div id="levels">
+      <p><b>Level 1-5:</b>&nbsp; <i>Beginner</i></p><br>
+      <p><b>Level 6-10:</b>&nbsp; <i>Occasional Traveller</i></p><br>
+      <p><b>Level 11-15:</b>&nbsp; <i>Map Enthusiast</i></p><br>
+      <p><b>Level 16-20:</b>&nbsp; <i>Globe-Trotter</i></p><br>
+      <p><b>Level 21-30:</b>&nbsp; <i>Probably a Cartographer</i></p><br>
+      <p><b>Level 31 & Up:</b>&nbsp; <i>PhD in Geography</i></p>
+    </div>
+
+    <div id="line"></div>
+<!-- 
+    <div id="att">
+      <p>
+        Source code for this map is on <a href="https://github.com/schoolofcities/city-guesser/"target="_blank">GitHub</a>.<br> It was designed and built by <a href="https://jamaps.github.io/"target="_blank">Jeff Allen</a> in 2017 (updated in 2022 at the <a href="https://www.schoolofcities.utoronto.ca/"target="_blank">School of Cities</a>) using <a href="http://mapbox.com/"target="_blank">Mapbox</a> and <a href="https://www.qgis.org/en/site/"target="_blank">QGIS</a>, with data from <a href="http://openstreetmap.org/"target="_blank">OpenStreetMap</a> and <a href="http://www.naturalearthdata.com/"target="_blank">Natural Earth</a>.
+      </p>
+    </div> -->
+
+  </div>
+
+</div>
+
+<script src='main.js'></script>
+
+</body>
+
+</html>
