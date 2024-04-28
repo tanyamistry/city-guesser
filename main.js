@@ -21,7 +21,7 @@ function getRandomInt(min, max) {
 
 var map = new mapboxgl.Map({
   container: 'map', // container id
-  style: 'mapbox://styles/schoolofcities/cl6nnmkks003q14pax679hpw4', // stylesheet location
+  style: 'mapbox://styles/mapbox/navigation-night-v1', // stylesheet location
   center: [0,0], // starting position [lng, lat]
   zoom: 12, // starting zoom
   maxZoom: 16,
